@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/TehShrike/make-tree.svg)](https://travis-ci.org/TehShrike/make-tree)
+
 Turns an array of strings `[ 'grandparent', 'parent', 'child' ]` into a tree of objects:
 
 	{
