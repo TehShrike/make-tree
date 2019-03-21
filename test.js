@@ -1,76 +1,89 @@
-var test = require('tape')
-var extend = require('extend')
+const test = require(`tape`)
 
-var makeTree = require('../make-tree')
+const makeTree = require(`./`)
 
-var TEST = [
-	[['wat'], {}, {
-		wat: {}
-	}],
-	[['wat', 'eh'], {}, {
-		wat: {
-			eh: {}
-		}
-	}],
-	[['wat', 'eh'], {
-		wat: {
-			um: 'yes'
-		}
-	}, {
-		wat: {
-			um: 'yes',
-			eh: {}
-		}
-	}],
-	[['wat', 'eh', 'huh'], {
-		wat: {
-			um: 'really?',
-			eh: 'gonna go away',
-			yeah: {
-				yup: 'sure'
-			}
+const TEST = [
+	[
+		[ `wat` ],
+		{},
+		{
+			wat: {},
 		},
-		ok: {}
-	}, {
-		wat: {
-			um: 'really?',
-			eh: {
-				huh: {}
+	],
+	[
+		[ `wat`, `eh` ],
+		{},
+		{
+			wat: {
+				eh: {},
 			},
-			yeah: {
-				yup: 'sure'
-			}
 		},
-		ok: {}
-	}]
+	],
+	[
+		[ `wat`, `eh` ],
+		{
+			wat: {
+				um: `yes`,
+			},
+		},
+		{
+			wat: {
+				um: `yes`,
+				eh: {},
+			},
+		},
+	],
+	[
+		[ `wat`, `eh`, `huh` ],
+		{
+			wat: {
+				um: `really?`,
+				eh: `gonna go away`,
+				yeah: {
+					yup: `sure`,
+				},
+			},
+			ok: {},
+		}, {
+			wat: {
+				um: `really?`,
+				eh: {
+					huh: {},
+				},
+				yeah: {
+					yup: `sure`,
+				},
+			},
+			ok: {},
+		},
+	],
 ]
 
-test('creating object hierarchy', function(t) {
+test(`creating object hierarchy`, t => {
 	t.plan(TEST.length)
-	TEST.forEach(function(testCase) {
-		var input = testCase[0]
-		var startingObject = extend(true, {}, testCase[1])
-		var expectedOutput = testCase[2]
-		var alteredObject = testCase[1]
-		var output = makeTree(input, alteredObject)
+	TEST.forEach(testCase => {
+		const input = testCase[0]
+		const expectedOutput = testCase[2]
+		const alteredObject = testCase[1]
+		makeTree(input, alteredObject)
 		t.deepEqual(alteredObject, expectedOutput)
 	})
 	t.end()
 })
 
-test('output is the existing child', function(t) {
-	var child = {}
-	var input = { hi: { yes: child }}
-	t.equal(makeTree(['hi', 'yes'], input), child)
+test(`output is the existing child`, t => {
+	const child = {}
+	const input = { hi: { yes: child } }
+	t.equal(makeTree([ `hi`, `yes` ], input), child)
 	t.end()
 })
 
-test('output is the new child', function(t) {
-	var input = {
-		hi: {}
+test(`output is the new child`, t => {
+	const input = {
+		hi: {},
 	}
 
-	var child = makeTree(['hi', 'yes'], input)
+	const child = makeTree([ `hi`, `yes` ], input)
 
 	t.equal(input.hi.yes, child)
 	t.end()

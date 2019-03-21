@@ -1,17 +1,10 @@
-
-// *shrug*
-function isReasonableObject(obj) {
-	return typeof obj !== 'undefined'
-		&& typeof obj !== 'string'
-		&& typeof obj !== 'number'
-		&& obj !== null
-}
+const isPlainObject = require(`is-plain-obj`)
 
 module.exports = function makeObjectTree(keysArray, obj) {
-	return keysArray.reduce(function(parent, key) {
-		var child = parent[key]
+	return keysArray.reduce((parent, key) => {
+		let child = parent[key]
 
-		if (!isReasonableObject(child)) {
+		if (!isPlainObject(child)) {
 			child = {}
 			parent[key] = child
 		}

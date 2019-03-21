@@ -1,22 +1,24 @@
-[![Build Status](https://travis-ci.org/TehShrike/make-tree.svg)](https://travis-ci.org/TehShrike/make-tree)
-
 Turns an array of strings `[ 'grandparent', 'parent', 'child' ]` into a tree of objects:
 
-	{
-		grandparent: {
-			parent: {
-				child: {
+```js
+{
+	grandparent: {
+		parent: {
+			child: {
 
-				}
 			}
 		}
 	}
+}
+```
 
 With one simple function call:
 
-	var makeTree = require('make-tree')
+```js
+const makeTree = require('make-tree')
 
-	var child = makeTree([ 'grandparent', 'parent', 'child' ], {})
+const child = makeTree([ 'grandparent', 'parent', 'child' ], {})
+```
 
 # makeTree(ary, obj)
 
@@ -25,17 +27,19 @@ With one simple function call:
 
 Returns the final object in the hierarchy represented in the array.
 
-	var inputObject = {
-		parent: {
-			child: {
-				baby: 'goo!'
-			}
+```js
+const inputObject = {
+	parent: {
+		child: {
+			baby: 'goo!'
 		}
 	}
+}
 
-	var child = makeTree([ 'parent', 'child' ], {parent: {child: {baby: 'goo!'}}})
+const child = makeTree([ 'parent', 'child' ], {parent: {child: {baby: 'goo!'}}})
 
-	console.log(child) // => { baby: 'goo!' }
+console.log(child) // => { baby: 'goo!' }
+```
 
 # License
 
